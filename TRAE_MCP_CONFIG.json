@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "mcp_gowd": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["dist/index.js"],
+      "cwd": "${workspaceFolder}/mcp_gowd",
+      "env": {
+        "GOWD_BASE_URL": "https://mtls-api-platform.gowd.com",
+        "GOWD_CLIENT_ID": "",
+        "GOWD_CLIENT_SECRET": "",
+        "GOWD_SCOPES": "",
+        "GOWD_MTLS_PFX_PATH": "",
+        "GOWD_MTLS_PFX_BASE64": "",
+        "GOWD_MTLS_PFX_PASSPHRASE": ""
+      }
+    }
+  }
+}

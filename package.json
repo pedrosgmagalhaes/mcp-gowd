@@ -1,0 +1,40 @@
+{
+  "name": "mcp-gowd-server",
+  "version": "1.0.0",
+  "description": "MCP server for Gowd BaaS API — contas digitais BRL, PIX payin/payout, e checkout",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-gowd": "dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "keywords": [
+    "mcp",
+    "gowd",
+    "pix",
+    "banking",
+    "baas",
+    "digital-account"
+  ],
+  "license": "UNLICENSED",
+  "private": true
+}
