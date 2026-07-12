@@ -21,6 +21,10 @@ import { registerBalanceTools } from './tools/balance.js';
 import { registerPayinTools } from './tools/payin.js';
 import { registerPayoutTools } from './tools/payout.js';
 import { registerHealthTools } from './tools/health.js';
+import { logger, registerUnhandledErrorHandlers } from './utils/logger.js';
+
+// Register global unhandled error handlers early
+registerUnhandledErrorHandlers();
 
 // ── Validate config ────────────────────────────────────────────────────────
 
@@ -34,14 +38,11 @@ function validateConfig(): void {
   }
 
   if (issues.length > 0) {
-    console.error('[gowd-mcp] Configuration errors:');
-    for (const issue of issues) {
-      console.error(`  - ${issue}`);
-    }
+    logger.warn('Configuration errors', { issues });
     if (transport === 'http') {
       process.exit(1);
     }
-    console.error('[gowd-mcp] Continuing in degraded mode (some tools will return config errors)');
+    logger.warn('Continuing in degraded mode (some tools will return config errors)');
   }
 }
 
@@ -67,7 +68,7 @@ async function runStdio(): Promise<void> {
   validateConfig();
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('[gowd-mcp] running via stdio');
+  logger.info('MCP server running via stdio');
 }
 
 // ── HTTP transport (Railway) ────────────────────────────────────────────────
@@ -94,7 +95,7 @@ async function runHttp(): Promise<void> {
 
   const port = parseInt(process.env.PORT || '3002', 10);
   app.listen(port, () => {
-    console.error(`[gowd-mcp] running on http://localhost:${port}/mcp`);
+    logger.info('MCP server running via HTTP', { port });
   });
 }
 
@@ -104,12 +105,12 @@ const transport = getTransport();
 
 if (transport === 'http') {
   runHttp().catch((error) => {
-    console.error('[gowd-mcp] Fatal error:', error);
+    logger.fatal('Fatal error — process will exit', error);
     process.exit(1);
   });
 } else {
   runStdio().catch((error) => {
-    console.error('[gowd-mcp] Fatal error:', error);
+    logger.fatal('Fatal error — process will exit', error);
     process.exit(1);
   });
 }
