@@ -1,9 +1,9 @@
 /**
- * Gowd MCP — Constants
+ * Gowd MCP — Constants (rebranded as LatamGateway)
  */
 
-/** Gowd BaaS API base URL */
-export const GOWD_DEFAULT_BASE_URL = 'https://mtls-api-platform.gowd.com';
+/** Gowd/LatamGateway BaaS API base URL */
+export const GOWD_DEFAULT_BASE_URL = 'https://mtls-api-platform.latamgateway.com';
 
 /** Default order expiration in seconds (30 min) */
 export const DEFAULT_EXPIRATION = 1800;
